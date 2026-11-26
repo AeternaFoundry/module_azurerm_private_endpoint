@@ -113,14 +113,6 @@ EOT
   validation {
     condition = alltrue([
       for k, v in var.private_endpoints : (
-        v.private_service_connection.subresource_names == null || (alltrue([for x in v.private_service_connection.subresource_names : length(x) == 0]))
-      )
-    ])
-    error_message = "[from validate.PrivateLinkSubResourceName: invalid when len(value) != 0]"
-  }
-  validation {
-    condition = alltrue([
-      for k, v in var.private_endpoints : (
         v.private_service_connection.request_message == null || (length(v.private_service_connection.request_message) >= 1 && length(v.private_service_connection.request_message) <= 140)
       )
     ])
@@ -166,6 +158,6 @@ EOT
     ])
     error_message = "[from tags.Validate: invalid when len(value) > 50]"
   }
-  # Note: 28 additional provider-side validators are enforced at apply time but not mirrored as validation{} blocks here (bespoke or non-mechanically-translatable).
+  # Note: 26 additional provider-side validators are enforced at apply time but not mirrored as validation{} blocks here (bespoke or non-mechanically-translatable).
 }
 
